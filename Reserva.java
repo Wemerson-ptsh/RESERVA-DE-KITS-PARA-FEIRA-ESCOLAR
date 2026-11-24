@@ -1,35 +1,37 @@
-public class ReservaKit extends Reserva implements Confirmavel {
-    private String kit;
-    private boolean confirmada;
+public abstract class Reserva {
+    private int codigo;
+    private String responsavel;
+    private String status;
 
-    public ReservaKit(int codigo, String responsavel, String status, String kit) {
-        super(codigo, responsavel, status);
-        this.kit = kit;
-        this.confirmada = false;
+    public Reserva(int codigo, String responsavel, String status) {
+        this.codigo = codigo;
+        this.responsavel = responsavel;
+        this.status = status;
     }
 
-    public String getKit() {
-        return kit;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public boolean isConfirmada() {
-        return confirmada;
+    public String getResponsavel() {
+        return responsavel;
     }
 
-    @Override
-    public String getTipo() {
-        return "Reserva de Kit";
+    public String getStatus() {
+        return status;
     }
 
-    @Override
-    public void confirmar() {
-        this.confirmada = true;
+    public void setStatus(String status) {
+        this.status = status;
     }
+
+    public abstract String getTipo();
 
     @Override
     public String toString() {
-        return super.toString() +
-               " | Kit: " + kit +
-               " | Confirmada: " + (confirmada ? "Sim" : "Não");
+        return "Código: " + codigo +
+               " | Tipo: " + getTipo() +
+               " | Responsável: " + responsavel +
+               " | Status: " + status;
     }
 }
