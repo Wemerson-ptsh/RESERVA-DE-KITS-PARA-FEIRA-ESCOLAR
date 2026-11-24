@@ -1,37 +1,33 @@
-public abstract class Reserva {
-    private int codigo;
-    private String responsavel;
-    private String status;
+import java.util.ArrayList;
 
-    public Reserva(int codigo, String responsavel, String status) {
-        this.codigo = codigo;
-        this.responsavel = responsavel;
-        this.status = status;
-    }
+public class App {
+    public static void main(String[] args) {
+        ArrayList<ReservaKit> reservas = new ArrayList<>();
 
-    public int getCodigo() {
-        return codigo;
-    }
+        // CREATE - Cadastrar pelo menos duas reservas
+        ReservaKit r1 = new ReservaKit(201, "Ana", "Pendente", "Kit de robótica 01");
+        ReservaKit r2 = new ReservaKit(202, "Carlos", "Pendente", "Kit de sensores");
+        reservas.add(r1);
+        reservas.add(r2);
 
-    public String getResponsavel() {
-        return responsavel;
-    }
+        // READ - Listar as reservas iniciais
+        System.out.println("=== RESERVAS CADASTRADAS ===");
+        for (ReservaKit r : reservas) {
+            System.out.println(r);
+        }
 
-    public String getStatus() {
-        return status;
-    }
+        // UPDATE + Confirmação via interface
+        r1.setStatus("Aprovada");
+        r1.confirmar();
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+        // DELETE - Remover uma reserva pelo código
+        int codigoRemover = 202;
+        reservas.removeIf(r -> r.getCodigo() == codigoRemover);
 
-    public abstract String getTipo();
-
-    @Override
-    public String toString() {
-        return "Código: " + codigo +
-               " | Tipo: " + getTipo() +
-               " | Responsável: " + responsavel +
-               " | Status: " + status;
+        // READ - Listagem final
+        System.out.println("\n=== RESULTADO FINAL ===");
+        for (ReservaKit r : reservas) {
+            System.out.println(r);
+        }
     }
 }
